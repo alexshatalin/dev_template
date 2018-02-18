@@ -3,20 +3,20 @@ document.addEventListener('DOMContentLoaded', function(event){
 		"use strict";  
 		//Make global variables
 		let devObj = {};
-		devObj.tmplVisibility = false;
-		devObj.modalVisibility = false;
-		devObj.tmplZindex = false;
+		//devObj.tmplVisibility = false;
+		//devObj.modalVisibility = false;
+		//devObj.tmplZindex = false;
 		devObj.tmplFragment = document.createDocumentFragment();
-		devObj.fieldTimer = null;
-		devObj.storageArray = [];
-		devObj.imageArray = [];
-		devObj.cssPropArray = ['height', 'background-size', 'background-image'];
-		devObj.head = document.getElementsByTagName('head')[0];
+		//devObj.fieldTimer = null;
+		//devObj.storageArray = [];
+		//devObj.imageArray = [];
+		//devObj.cssPropArray = ['height', 'background-size', 'background-image'];
+		//devObj.head = document.getElementsByTagName('head')[0];
 		devObj.bodyTag = document.body.firstChild;
-		devObj.savedStorage = JSON.parse(sessionStorage.getItem('templateContainer'));
-		devObj.counter = 0;
-		devObj.style = null;
-		devObj.defaultStyles = null;
+		//devObj.savedStorage = JSON.parse(sessionStorage.getItem('templateContainer'));
+		//devObj.counter = 0;
+		//devObj.style = null;
+		//devObj.defaultStyles = null;
 
 		// Basic app functions
 		function setAttributes(element, attrs) {
@@ -73,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function(event){
 		// Create form to accept user inputs 
 		addElement('div', function(newElement){
 			setAttributes(newElement, {
-				'id': '_devForm_',
-				'class': '_dev_form_'
+				'id': '_devForm_'
 			});
 		}, function(newElement){
 			document.getElementById('_devModal_').appendChild(newElement);
@@ -86,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function(event){
 				'type': 'text',
 				'placeholder': 'height'
 			});
+		}, function(newElement){
+			document.getElementById('_devForm_').appendChild(newElement);
 		});
 
 		addElement('input', function(newElement){
@@ -94,8 +95,33 @@ document.addEventListener('DOMContentLoaded', function(event){
 				'type': 'text',
 				'placeholder': 'width'
 			});
+		}, function(newElement){
+			document.getElementById('_devForm_').appendChild(newElement);
 		});
 
+		addElement('div', function(newElement){
+			setAttributes(newElement, {
+				'id': '_dbActions_'
+			});
+		}, function(newElement){
+			document.getElementById('_devForm_').appendChild(newElement);
+		});
+
+		// Create dbButtons Array
+		devObj.dbButtons = ['_openDb_', '_populateDb_', '_displayDb_', '_deleteDb_'];
+
+		for( let i = 0; i < devObj.dbButtons.length; i++ ) {
+			addElement('div', function(newElement){
+				devObj.buttonText = document.createTextNode(devObj.dbButtons[i].slice(1,-3));
+				newElement.appendChild(devObj.buttonText);
+				setAttributes(newElement, {
+					'id': devObj.dbButtons[i]
+				});
+			}, function(newElement){
+				devObj.tmplFragment.appendChild(newElement);
+			});
+		} 
+		document.getElementById('_dbActions_').appendChild(devObj.tmplFragment);
 
 	}());
 });
